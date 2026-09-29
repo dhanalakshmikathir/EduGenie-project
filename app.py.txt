@@ -1,0 +1,16 @@
+import streamlit as st
+import google.generativeai as genai
+
+st.set_page_config(page_title="EduGenie", page_icon="🎓")
+st.title("🎓 EduGenie")
+st.write("Ungal doubt ah ketkalam Dhanam!")
+
+api_key = st.text_input("Gemini API Key:", type="password")
+if api_key:
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    question = st.text_input("Ungal kelvi:")
+    if st.button("Answer"):
+        if question:
+            response = model.generate_content(question)
+            st.success(response.text)
